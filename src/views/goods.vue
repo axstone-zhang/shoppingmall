@@ -14,10 +14,11 @@
           </div>
           <div class="accessory-result">
             <!-- filter -->
-            <div class="filter stopPop" id="filter" >
+            <div class="filter stopPop" id="filter" :class="{'filterby-show':filterBy}">
               <dl class="filter-price">
                 <dt>Price:</dt>
-                <dd><a href="javascript:void(0)">All</a></dd>
+                <dd><a href="javascript:void(0)" :class="{'cur':priceChecked=='all'}" @click="setPriceFilter('all')">All</a></dd>
+                <dd v-for="(price, index) in priceFilter" :key="index"><a href="javascript:void(0)" :class="{'cur':priceChecked==index}" @click="setPriceFilter(index)">{{ price.startPrice }} - {{ price.endPrice }}</a></dd>
               </dl>
             </div>
 
@@ -27,7 +28,7 @@
                 <ul>
                   <li v-for="(item, index) in goodsList" :key="index">
                     <div class="pic">
-                      <a href="#"><img :src="'../../static/'+item.prodcutImg" alt=""></a>
+                      <a href="#"><img v-lazy="'../../static/'+item.prodcutImg" alt=""></a>
                     </div>
                     <div class="main">
                       <div class="name">{{ item.productName }}</div>
@@ -49,6 +50,7 @@
           </div>
         </div>
       </div>
+    <div class="md-overlay" v-show="overLayFlag" @click.stop="closePop"></div>
     <my-footer></my-footer>
   </div>
 </template>
@@ -66,7 +68,28 @@ export default {
   },
   data () {
       return {
-        goodsList: []
+        goodsList: [],
+        priceFilter:[
+          {
+              startPrice:'0.00',
+              endPrice:'100.00'
+          },
+          {
+            startPrice:'100.00',
+            endPrice:'500.00'
+          },
+          {
+            startPrice:'500.00',
+            endPrice:'1000.00'
+          },
+          {
+            startPrice:'1000.00',
+            endPrice:'5000.00'
+          }
+        ],
+        priceChecked:'all',
+        filterBy: false,
+        overLayFlag: false
       }
   },
   methods: {
@@ -75,7 +98,19 @@ export default {
         let { data } = res;
         this.goodsList = data.result;
       })
-    }
+    },
+    showFilterPop(){
+      this.filterBy = true;
+      this.overLayFlag = true;
+    },
+    closePop(){
+      this.filterBy = false;
+      this.overLayFlag = false;
+    },
+    setPriceFilter(index){
+      this.priceChecked = index;
+      this.closePop();
+    },
   },
   created() {
     this.refreshView()

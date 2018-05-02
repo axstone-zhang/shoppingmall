@@ -25,6 +25,17 @@ npm run e2e
 
 # run all tests
 npm test
+
+# npm install vue-lazyload --save
+安装图片懒加载
+
+# npm install sass-loader --save-dev
+# npm install node-sass --save-dev
+安装sass
+
+# npm install mockjs --save
+安装mockjs模拟数据
+
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

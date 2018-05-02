@@ -3,10 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import './mock/index.js'; // 该项目所有请求使用mockjs模拟
+import './mock/index.js'
+import VueLazyLoad from 'vue-lazyload'
 
 Vue.config.productionTip = false
-
+Vue.use(VueLazyLoad, {
+  loading: "../static/loading-svg/loading-bars.svg"
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
