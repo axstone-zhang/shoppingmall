@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import store from '../store'
+import store from '../store'
 import router from '../router'
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
